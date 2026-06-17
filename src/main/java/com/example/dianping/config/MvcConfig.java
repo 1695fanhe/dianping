@@ -2,6 +2,7 @@ package com.example.dianping.config;
 
 import com.example.dianping.utils.LoginInterceptor;
 import com.example.dianping.utils.RefreshTokenInterceptor;
+import com.example.dianping.utils.SystemConstants;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -40,7 +41,12 @@ public class MvcConfig implements WebMvcConfigurer {
                         "/shop/**",
                         "/shop-type/**",
                         "/upload/**",
-                        "/voucher/**"
+                        "/voucher/**",
+                        "/**/*.html",
+                        "/css/**",
+                        "/js/**",
+                        "/imgs/**",
+                        "/favicon.ico"
                 );
     }
 }
