@@ -17,11 +17,12 @@ import com.example.dianping.utils.RedisData;
 import com.example.dianping.utils.SystemConstants;
 import org.springframework.data.redis.connection.RedisGeoCommands;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Point;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.domain.geo.GeoReference;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -134,11 +135,10 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         }
        int from=(current-1)*SystemConstants.DEFAULT_PAGE_SIZE;
         int end=current*SystemConstants.DEFAULT_PAGE_SIZE;
-        String key="shop:geo:"+typeId;
-       GeoResults<RedisGeoCommands.GeoLocation<String>> results= stringRedisTemplate.opsForGeo().
-                search(key, GeoReference.fromCoordinate(x,y),new Distance(5000),
-                        RedisGeoCommands.GeoSearchCommandArgs.newGeoSearchArgs().includeCoordinates()
-                                .limit(end));
+        String key = "shop:geo:" + typeId;
+        Circle circle = new Circle(new Point(x, y), new Distance(5000));
+        GeoResults<RedisGeoCommands.GeoLocation<String>> results = stringRedisTemplate.opsForGeo()
+                .radius(key, circle, RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeCoordinates().limit(end));
         if(results== null)
         {
             return Result.ok();
