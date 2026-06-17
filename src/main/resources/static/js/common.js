@@ -1,5 +1,4 @@
-// let commonURL = "http://192.168.50.115:8081";
-let commonURL = "/api";
+let commonURL = "";
 // 设置后台服务地址
 axios.defaults.baseURL = commonURL;
 axios.defaults.timeout = 2000;
