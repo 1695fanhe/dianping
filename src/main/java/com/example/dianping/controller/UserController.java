@@ -70,7 +70,6 @@ public class UserController {
 //        UserDTO user = UserHolder.getUser();
         //UserDTO user = (UserDTO) session.getAttribute("user");
         UserDTO user = UserHolder.getUser();
-        System.out.println("user:" + user);
         return Result.ok(user);
     }
 

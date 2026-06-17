@@ -24,7 +24,6 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
                              Object handler) {
 
         String token = request.getHeader("Authorization");
-        System.out.println("token:" + token);
         if (token == null || token.isEmpty()) {
             return true;
         }
@@ -41,7 +40,6 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
         UserDTO userDTO = BeanUtil.fillBeanWithMap(userMap, new UserDTO(), false);
 
         UserHolder.saveUser(userDTO);
-        System.out.println("userDTO : " + userDTO);
         // 🔥 刷新 TTL（滑动过期）
         stringRedisTemplate.expire(
                 key,
