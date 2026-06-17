@@ -26,7 +26,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/imgs/**")
-                .addResourceLocations("file:" + SystemConstants.IMAGE_UPLOAD_DIR + "/");
+                .addResourceLocations("file:" + SystemConstants.IMAGE_UPLOAD_DIR + "/", "classpath:/static/imgs/");
     }
 
     @Override
@@ -40,6 +40,7 @@ public class MvcConfig implements WebMvcConfigurer {
         // 🔥 2. 再做登录校验
         registry.addInterceptor(new LoginInterceptor())
                 .order(1)
+                .addPathPatterns("/**")
                 .excludePathPatterns(
                         "/user/code",
                         "/user/login",
